@@ -4,6 +4,9 @@ defmodule RocketpayWeb.UsersController do
 
   alias Rocketpay.User
 
+  # definimos o callback que criamos
+  action_fallback RocketpayWeb.FallbackController
+
   # Recebe os parametros enviados por post
   # enviamos esses dados para a lógica da aplicação
   # que serão tratados no schema, validados e salvo no banco
@@ -19,11 +22,15 @@ defmodule RocketpayWeb.UsersController do
     |> render("create.json", user: user)
   end
 
-  defp handle_response({:error, result}, conn) do
-    conn
-    |> put_status(:bad_request)
-    |> put_view(RocketpayWeb.ErrorView)
-    |> render("400.json", result: result) # Renderiza Json na resposta
+  # Versão 2 da função create usando uma nova forma de lidar com
+  def create2(conn, params) do
+    # With verifica um caso, se funcionar executa o corpo da função
+    # caso ele falhe, o erro é retornado para que o chamou (phoenix)
+    # como definimos um fallback controller o erro irá para o fallback
+    with {:ok, %User{} = user} <- Rocketpay.create_user(params) do
+      conn
+      |> put_status(:created)
+      |> render("create.json", user: user)
+    end
   end
-
 end

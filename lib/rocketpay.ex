@@ -3,7 +3,11 @@ defmodule Rocketpay do
   # com o padrão facade dizemos que temos um módulos principal
   # com várias funcionalidades
   alias Rocketpay.Users.Create, as: UserCreate
+  alias Rocketpay.Accounts.{ Deposit, Withdraw }
 
-  defdelegate create_user(params), to: UserCreate, as: :call
+  defdelegate create_user(params), to: UserCreate, as: :call_multi
   # agora podemos chamar Rocketpay.create_user(params)
+
+  defdelegate deposit(params), to: Deposit, as: :call
+  defdelegate withdraw(params), to: Withdraw, as: :call
 end

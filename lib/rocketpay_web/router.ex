@@ -13,7 +13,12 @@ defmodule RocketpayWeb.Router do
     get "/:filename", WelcomeController, :index
 
     # Rota posta que recebe parametros para criação de um usuário no banco de dados
-    post "/users", UsersController, :create
+    post "/users", UsersController, :create2
+
+    #  Deposito e saque na conta
+    post "/accounts/:id/deposit", AccountController, :deposit
+    post "/accounts/:id/withdraw", AccountController, :withdraw
+
   end
 
   # Enables LiveDashboard only for development
