@@ -1,7 +1,7 @@
 defmodule RocketpayWeb.AccountsControllerTest do
 
   # ConnCase testes de controller
-  use RocketpayWeb.ConnCase
+  use RocketpayWeb.ConnCase, async: true
 
   alias Rocketpay.{Account, User}
 

@@ -1,7 +1,7 @@
 defmodule Rocketpay.Users.CreateTest do
 
   # testes de changeset e database
-  use Rocketpay.DataCase
+  use Rocketpay.DataCase, async: true
 
   alias Rocketpay.User
   alias Rocketpay.Users.Create
